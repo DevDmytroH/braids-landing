@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ta Sho Plete - Premium Hair Extensions</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --beige-light: #F5F1E8;
+            --beige: #E8DCC4;
+            --beige-dark: #D4C4A8;
+            --beige-darker: #B8A888;
+            --text-dark: #3D3427;
+            --text-medium: #6B5D4F;
+            --glass-bg: rgba(232, 220, 196, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.3);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--beige-light);
+            color: var(--text-dark);
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        /* Top Navigation */
+        .top-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: linear-gradient(to bottom, rgba(245, 241, 232, 0.9), transparent);
+            backdrop-filter: blur(10px);
+            pointer-events: none;
+        }
+
+        .logo, .language-selector {
+            pointer-events: auto;
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            letter-spacing: 1px;
+        }
+
+        .language-selector {
+            display: flex;
+            gap: 0.5rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 25px;
+            padding: 0.5rem;
+        }
+
+        .lang-btn {
+            padding: 0.5rem 1rem;
+            background: transparent;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-medium);
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn.active {
+            background: rgba(255, 255, 255, 0.8);
+            color: var(--text-dark);
+        }
+
+        .lang-btn:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Vertical Scroll Container */
+        .scroll-container {
+            height: 100vh;
+            width: 100%;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .scroll-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Product Card - Full Screen with smooth gradient background */
+        .product-slide {
+            height: 100vh;
+            width: 100%;
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6rem 2rem 2rem;
+            position: relative;
+            background: linear-gradient(135deg, var(--beige-light) 0%, var(--beige) 100%);
+            transition: background 0.5s ease;
+        }
+
+        /* Smooth background overlay animation */
+        .product-slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(232, 220, 196, 0.3), transparent 70%);
+            opacity: 0;
+            transition: opacity 1s ease;
+            pointer-events: none;
+        }
+
+        .product-slide.active::before {
+            opacity: 1;
+        }
+
+        /* Product Content */
+        .product-content {
+            max-width: 500px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        /* Horizontal Gallery Container - Redesigned */
+        .gallery-container {
+            width: 100%;
+            max-width: 450px;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .gallery-wrapper {
+            overflow-x: auto;
+            overflow-y: hidden;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            cursor: grab;
+            padding: 2rem 0 7rem 0;
+            /* Smooth fade effect at edges like YouTube */
+            -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+            mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+        }
+
+        .gallery-wrapper:active {
+            cursor: grabbing;
+        }
+
+        .gallery-wrapper::-webkit-scrollbar {
+            display: none;
+        }
+
+        .gallery-track {
+            display: flex;
+            gap: 1.5rem;
+            padding: 0 calc((100% - 350px) / 2);
+        }
+
+        .gallery-item {
+            min-width: 350px;
+            height: 350px;
+            scroll-snap-align: center;
+            background: var(--glass-bg);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+        }
+
+        .gallery-item:active {
+            transform: scale(0.98);
+        }
+
+        /* Image support with fallback to emoji */
+        .gallery-item-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 30px;
+        }
+
+        .gallery-item-emoji {
+            font-size: 6rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--text-dark);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            z-index: 2;
+        }
+
+        /* Gallery Indicators - Now clickable */
+        .gallery-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: -6rem;
+            margin-bottom: 2rem;
+        }
+
+        .gallery-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(61, 52, 39, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .gallery-dot:hover {
+            background: rgba(61, 52, 39, 0.5);
+            transform: scale(1.2);
+        }
+
+        .gallery-dot.active {
+            background: var(--text-dark);
+            width: 24px;
+            border-radius: 4px;
+        }
+
+        /* Product Info */
+        .product-info {
+            text-align: center;
+            width: 100%;
+        }
+
+        .product-name {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            letter-spacing: 1px;
+        }
+
+        .product-description {
+            font-size: 1rem;
+            color: var(--text-medium);
+            line-height: 1.6;
+            margin-bottom: 1.2rem;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .product-specs {
+            display: flex;
+            justify-content: center;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+
+        .spec-tag {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            padding: 0.5rem 1rem;
+            border-radius: 18px;
+            font-size: 0.8rem;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        /* Price and CTA */
+        .product-footer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .product-price {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--text-dark);
+        }
+
+        .buy-btn {
+            background: var(--text-dark);
+            color: var(--beige-light);
+            border: none;
+            padding: 1rem 3rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .buy-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+            background: var(--beige-darker);
+        }
+
+        /* Side Navigation Dots */
+        .side-nav {
+            position: fixed;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            z-index: 90;
+        }
+
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(61, 52, 39, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-dot.active {
+            background: var(--text-dark);
+            height: 35px;
+            border-radius: 6px;
+        }
+
+        /* Scroll Hint - Only on first screen */
+        .scroll-hint {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-medium);
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            animation: bounce 2s infinite;
+            opacity: 0.7;
+            pointer-events: none;
+            margin-top: 2rem;
+        }
+
+        .scroll-hint-arrow {
+            font-size: 1.5rem;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            top: 6rem;
+            right: 2rem;
+            background: rgba(76, 175, 80, 0.95);
+            color: white;
+            padding: 1.2rem 2rem;
+            border-radius: 25px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            z-index: 3000;
+            transform: translateX(400px);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .toast.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .toast-icon {
+            font-size: 1.5rem;
+        }
+
+        .toast-message {
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        /* Instagram Popup Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--beige-light);
+            border-radius: 30px;
+            padding: 3rem 2.5rem;
+            max-width: 450px;
+            width: 90%;
+            position: relative;
+            animation: scaleIn 0.3s ease;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--glass-bg);
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            color: var(--text-dark);
+        }
+
+        .modal-close:hover {
+            transform: rotate(90deg);
+            background: var(--beige-dark);
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        .modal-subtitle {
+            font-size: 1rem;
+            color: var(--text-medium);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .instagram-input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            border: 2px solid var(--beige-dark);
+            border-radius: 25px;
+            background: white;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .instagram-input:focus {
+            outline: none;
+            border-color: var(--text-dark);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .instagram-input::placeholder {
+            color: var(--text-medium);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: var(--text-dark);
+            color: var(--beige-light);
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .submit-btn:hover {
+            background: var(--beige-darker);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .error-message {
+            display: none;
+            text-align: center;
+            padding: 1rem;
+            background: rgba(244, 67, 54, 0.1);
+            border-radius: 15px;
+            color: #c62828;
+            margin-top: 1rem;
+        }
+
+        /* Full Screen Lightbox */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.95);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 90vw;
+            max-height: 90vh;
+            animation: scaleIn 0.3s ease;
+        }
+
+        .lightbox-image {
+            max-width: 90vw;
+            max-height: 90vh;
+            width: auto;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .lightbox-emoji {
+            font-size: 15rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(30px);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: -3rem;
+            right: 0;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            color: var(--text-dark);
+        }
+
+        .lightbox-close:hover {
+            transform: scale(1.1) rotate(90deg);
+            background: rgba(255, 255, 255, 1);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .product-slide {
+                padding: 5rem 1rem 1.5rem;
+            }
+
+            .gallery-container {
+                max-width: 100%;
+            }
+
+            .gallery-wrapper {
+                padding: 2rem 0 7rem 0;
+                /* Adjust mask for mobile */
+                -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+                mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+            }
+
+            .gallery-indicators {
+                margin-top: -4rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .gallery-track {
+                padding: 0 calc((100% - 280px) / 2);
+            }
+
+            .gallery-item {
+                min-width: 280px;
+                height: 280px;
+            }
+
+            .gallery-item-emoji {
+                font-size: 4.5rem;
+            }
+
+            .product-name {
+                font-size: 1.7rem;
+            }
+
+            .product-description {
+                font-size: 0.95rem;
+            }
+
+            .product-price {
+                font-size: 1.8rem;
+            }
+
+            .buy-btn {
+                padding: 0.9rem 2rem;
+                font-size: 0.9rem;
+            }
+
+            .product-footer {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .side-nav {
+                right: 1rem;
+            }
+
+            .scroll-hint {
+                bottom: 10rem;
+            }
+
+            .lightbox-emoji {
+                font-size: 8rem;
+                padding: 2rem;
+            }
+
+            .modal-content {
+                padding: 2.5rem 2rem;
+            }
+
+            .modal-title {
+                font-size: 1.5rem;
+            }
+
+            .toast {
+                top: 5rem;
+                right: 1rem;
+                left: 1rem;
+                padding: 1rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation -->
+    <div class="top-nav">
+        <div class="logo">TA SHO PLETE</div>
+        <div class="language-selector">
+            <button class="lang-btn active" data-lang="en">EN</button>
+            <button class="lang-btn" data-lang="uk">UA</button>
+            <button class="lang-btn" data-lang="es">ES</button>
+        </div>
+    </div>
+
+    <!-- Side Navigation Dots -->
+    <div class="side-nav" id="sideNav">
+        <div class="nav-dot active" data-index="0"></div>
+        <div class="nav-dot" data-index="1"></div>
+        <div class="nav-dot" data-index="2"></div>
+        <div class="nav-dot" data-index="3"></div>
+        <div class="nav-dot" data-index="4"></div>
+        <div class="nav-dot" data-index="5"></div>
+    </div>
+
+    <!-- Scroll Container -->
+    <div class="scroll-container" id="scrollContainer">
+        <!-- Products will be generated by JavaScript -->
+    </div>
+
+    <!-- Scroll Hint -->
+    <div class="scroll-hint">
+        <span data-translate="swipeToExplore">Swipe to explore</span>
+        <div class="scroll-hint-arrow">↓</div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <div class="toast-icon">✓</div>
+        <div class="toast-message" data-translate="toastMessage">Order sent! We'll contact you soon.</div>
+    </div>
+
+    <!-- Instagram Modal -->
+    <div class="modal" id="instagramModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">×</button>
+            <h2 class="modal-title" data-translate="modalTitle">Complete Your Order</h2>
+            <p class="modal-subtitle" data-translate="modalSubtitle">Enter your Instagram to proceed</p>
+            <input 
+                type="text" 
+                class="instagram-input" 
+                id="instagramInput" 
+                placeholder="@your_instagram"
+                data-translate-placeholder="instagramPlaceholder"
+            >
+            <button class="submit-btn" id="submitBtn" data-translate="submitButton">Confirm Order</button>
+            <div class="error-message" id="errorMessage" data-translate="errorMessage">Failed to send order. Please try again.</div>
+        </div>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <div id="lightboxContent"></div>
+            <button class="lightbox-close" id="lightboxClose">×</button>
+        </div>
+    </div>
+
+    <script>
+        // Configuration
+        const TELEGRAM_BOT_TOKEN = '8459093280:AAGWfIASAQ4u6Dqlz7hbDSJxCl8dl9uFNxY';
+        const TELEGRAM_CHAT_ID = 'YOUR_CHAT_ID'; // Replace with your chat ID
+        
+        // Translations
+        const translations = {
+            en: {
+                swipeToExplore: 'Swipe to explore',
+                modalTitle: 'Complete Your Order',
+                modalSubtitle: 'Enter your Instagram to proceed',
+                instagramPlaceholder: '@your_instagram',
+                submitButton: 'Confirm Order',
+                toastMessage: "Order sent! We'll contact you soon.",
+                errorMessage: 'Failed to send order. Please try again.',
+                buyButton: 'Buy',
+                bestSeller: 'Best Seller',
+                premium: 'Premium',
+                trending: 'Trending',
+                luxury: 'Luxury',
+                new: 'New',
+                featured: 'Featured',
+                products: {
+                    naturalWave: {
+                        name: 'Natural Wave',
+                        description: 'Luxurious, natural-looking waves that blend seamlessly with your hair.',
+                        specs: ['18-24"', '100% Human', 'Virgin']
+                    },
+                    silkyStraight: {
+                        name: 'Silky Straight',
+                        description: 'Ultra-smooth, sleek straight extensions that exude sophistication.',
+                        specs: ['16-28"', 'Remy Hair', 'Heat Safe']
+                    },
+                    deepCurly: {
+                        name: 'Deep Curly',
+                        description: 'Bouncy, voluminous curls that add dimension and personality.',
+                        specs: ['14-22"', 'Virgin Hair', 'Double Drawn']
+                    },
+                    bodyWave: {
+                        name: 'Body Wave',
+                        description: 'Soft, flowing waves with natural movement and bounce.',
+                        specs: ['18-26"', 'Premium', 'Low Maintenance']
+                    },
+                    kinkyCoily: {
+                        name: 'Kinky Coily',
+                        description: 'Authentic textured coils with stunning volume and definition.',
+                        specs: ['12-20"', '4C Texture', 'Tangle-Free']
+                    },
+                    looseWave: {
+                        name: 'Loose Wave',
+                        description: 'Effortlessly chic waves with a relaxed, beachy vibe.',
+                        specs: ['16-24"', 'Virgin Quality', 'Color Safe']
+                    }
+                }
+            },
+            uk: {
+                swipeToExplore: 'Гортайте для перегляду',
+                modalTitle: 'Завершіть замовлення',
+                modalSubtitle: 'Введіть ваш Instagram для продовження',
+                instagramPlaceholder: '@ваш_instagram',
+                submitButton: 'Підтвердити замовлення',
+                toastMessage: 'Замовлення відправлено! Ми зв\'яжемося з вами найближчим часом.',
+                errorMessage: 'Не вдалося відправити замовлення. Спробуйте ще раз.',
+                buyButton: 'Купити',
+                bestSeller: 'Бестселер',
+                premium: 'Преміум',
+                trending: 'Тренд',
+                luxury: 'Люкс',
+                new: 'Новинка',
+                featured: 'Рекомендовано',
+                products: {
+                    naturalWave: {
+                        name: 'Природна хвиля',
+                        description: 'Розкішні природні хвилі, що ідеально поєднуються з вашим волоссям.',
+                        specs: ['18-24"', '100% натуральне', 'Незаймане']
+                    },
+                    silkyStraight: {
+                        name: 'Шовковисте пряме',
+                        description: 'Ультра-гладке, витончене пряме волосся що випромінює елегантність.',
+                        specs: ['16-28"', 'Remy волосся', 'Термостійке']
+                    },
+                    deepCurly: {
+                        name: 'Глибокі локони',
+                        description: 'Пружні, об\'ємні локони що додають виразності та індивідуальності.',
+                        specs: ['14-22"', 'Незаймане', 'Подвійне']
+                    },
+                    bodyWave: {
+                        name: 'Об\'ємна хвиля',
+                        description: 'М\'які хвилі з природним рухом та пружністю.',
+                        specs: ['18-26"', 'Преміум', 'Легкий догляд']
+                    },
+                    kinkyCoily: {
+                        name: 'Кучеряве спіральне',
+                        description: 'Автентичні текстуровані завитки з приголомшливим об\'ємом.',
+                        specs: ['12-20"', 'Текстура 4C', 'Без заплутування']
+                    },
+                    looseWave: {
+                        name: 'Вільна хвиля',
+                        description: 'Невимушено стильні хвилі з розслабленою пляжною атмосферою.',
+                        specs: ['16-24"', 'Незаймане', 'Під фарбування']
+                    }
+                }
+            },
+            es: {
+                swipeToExplore: 'Desliza para explorar',
+                modalTitle: 'Completa tu pedido',
+                modalSubtitle: 'Ingresa tu Instagram para continuar',
+                instagramPlaceholder: '@tu_instagram',
+                submitButton: 'Confirmar pedido',
+                toastMessage: '¡Pedido enviado! Te contactaremos pronto.',
+                errorMessage: 'Error al enviar el pedido. Inténtalo de nuevo.',
+                buyButton: 'Comprar',
+                bestSeller: 'Más vendido',
+                premium: 'Premium',
+                trending: 'Tendencia',
+                luxury: 'Lujo',
+                new: 'Nuevo',
+                featured: 'Destacado',
+                products: {
+                    naturalWave: {
+                        name: 'Onda Natural',
+                        description: 'Rainbow brown boho braids & Curly dreads Bohemian ombre dreadlocks Mixed texture braids set Personalized dreads Festival hair extensions',
+                        specs: ['21.5"', '100% Humano', 'Virgen']
+                    },
+                    silkyStraight: {
+                        name: 'Liso Sedoso',
+                        description: 'Extensiones ultra suaves y elegantes que irradian sofisticación.',
+                        specs: ['16-28"', 'Cabello Remy', 'Resistente al calor']
+                    },
+                    deepCurly: {
+                        name: 'Rizo Profundo',
+                        description: 'Rizos voluminosos que añaden dimensión y personalidad.',
+                        specs: ['14-22"', 'Cabello Virgen', 'Doble tirón']
+                    },
+                    bodyWave: {
+                        name: 'Onda Corporal',
+                        description: 'Ondas suaves y fluidas con movimiento natural.',
+                        specs: ['18-26"', 'Premium', 'Bajo mantenimiento']
+                    },
+                    kinkyCoily: {
+                        name: 'Afro Rizado',
+                        description: 'Rizos texturizados auténticos con volumen impresionante.',
+                        specs: ['12-20"', 'Textura 4C', 'Sin enredos']
+                    },
+                    looseWave: {
+                        name: 'Onda Suelta',
+                        description: 'Ondas elegantes con un ambiente relajado y playero.',
+                        specs: ['16-24"', 'Calidad Virgen', 'Apto para teñir']
+                    }
+                }
+            }
+        };
+
+        // Product data with image support (empty images will show emojis as fallback)
+        const products = [
+            { id: 'naturalWave', price: 99, badge: 'bestSeller',
+              images: ['https://i.etsystatic.com/58470733/r/il/422481/6936642930/il_1588xN.6936642930_fzal.jpg', 'https://i.etsystatic.com/58470733/r/il/61887f/6984609439/il_1588xN.6984609439_pjr2.jpg', 'https://i.etsystatic.com/58470733/r/il/b6e5b8/6936639596/il_1588xN.6936639596_5x8e.jpg', 'https://i.etsystatic.com/58470733/r/il/bc59ad/6936639542/il_1588xN.6936639542_2wy5.jpg'], // Add URLs here: ['url1.jpg', 'url2.jpg', ...]
+              emojis: ['🌊', '💧', '🌀', '💎'] 
+            },
+            { id: 'silkyStraight', price: 229, badge: 'premium', 
+              images: ['', '', '', ''], 
+              emojis: ['✨', '🌟', '⭐', '💫'] 
+            },
+            { id: 'deepCurly', price: 249, badge: 'trending', 
+              images: ['', '', '', ''], 
+              emojis: ['🌺', '🌸', '🌼', '🌻'] 
+            },
+            { id: 'bodyWave', price: 209, badge: 'luxury', 
+              images: ['', '', '', ''], 
+              emojis: ['💫', '🌙', '☁️', '🤍'] 
+            },
+            { id: 'kinkyCoily', price: 269, badge: 'new', 
+              images: ['', '', '', ''], 
+              emojis: ['🌸', '🌹', '🏵️', '💮'] 
+            },
+            { id: 'looseWave', price: 199, badge: 'featured', 
+              images: ['', '', '', ''], 
+              emojis: ['🦋', '🌈', '✨', '🎨'] 
+            }
+        ];
+
+        let currentLanguage = 'en';
+        let selectedProduct = null;
+
+        // Initialize
+        function init() {
+            renderProducts();
+            setupEventListeners();
+            updateLanguage('en');
+        }
+
+        // Render products
+        function renderProducts() {
+            const container = document.getElementById('scrollContainer');
+            container.innerHTML = products.map((product, index) => `
+                <div class="product-slide" data-slide-index="${index}">
+                    <div class="product-content">
+                        <div class="gallery-container" data-product-index="${index}">
+                            <div class="gallery-wrapper">
+                                <div class="gallery-track">
+                                    ${product.images.map((img, imgIndex) => `
+                                        <div class="gallery-item" data-image="${img}" data-emoji="${product.emojis[imgIndex]}">
+                                            ${img ? `<img src="${img}" alt="" class="gallery-item-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">` : ''}
+                                            <div class="gallery-item-emoji" style="${img ? 'display:none' : ''}">${product.emojis[imgIndex]}</div>
+                                            ${imgIndex === 0 ? `<div class="product-badge" data-translate="${product.badge}"></div>` : ''}
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                            <div class="gallery-indicators"></div>
+                        </div>
+                        <div class="product-info">
+                            <h2 class="product-name" data-product="${product.id}"></h2>
+                            <p class="product-description" data-product="${product.id}"></p>
+                            <div class="product-specs" data-product="${product.id}"></div>
+                            <div class="product-footer">
+                                <div class="product-price">$${product.price}</div>
+                                <button class="buy-btn" data-product-id="${product.id}" data-product-price="${product.price}" data-translate="buyButton">Buy</button>
+                            </div>
+                            ${index === 0 ? `
+                                <div class="scroll-hint">
+                                    <span data-translate="swipeToExplore">Swipe to explore</span>
+                                    <div class="scroll-hint-arrow">↓</div>
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            setupGalleries();
+        }
+
+        // Setup galleries with clickable dots
+        function setupGalleries() {
+            document.querySelectorAll('.gallery-container').forEach(container => {
+                const wrapper = container.querySelector('.gallery-wrapper');
+                const items = container.querySelectorAll('.gallery-item');
+                const indicators = container.querySelector('.gallery-indicators');
+                
+                // Create dots
+                items.forEach((_, index) => {
+                    const dot = document.createElement('div');
+                    dot.classList.add('gallery-dot');
+                    if (index === 0) dot.classList.add('active');
+                    dot.setAttribute('data-index', index);
+                    indicators.appendChild(dot);
+                });
+
+                const dots = indicators.querySelectorAll('.gallery-dot');
+
+                // Update active dot on scroll
+                wrapper.addEventListener('scroll', () => {
+                    const scrollLeft = wrapper.scrollLeft;
+                    const itemWidth = items[0].offsetWidth + 24; // item width + gap
+                    const currentIndex = Math.round(scrollLeft / itemWidth);
+                    
+                    dots.forEach((dot, index) => {
+                        dot.classList.toggle('active', index === currentIndex);
+                    });
+                });
+
+                // Click dot to scroll to image
+                dots.forEach((dot, index) => {
+                    dot.addEventListener('click', () => {
+                        const itemWidth = items[0].offsetWidth + 24;
+                        wrapper.scrollTo({
+                            left: itemWidth * index,
+                            behavior: 'smooth'
+                        });
+                    });
+                });
+
+                // Click image to open lightbox
+                items.forEach(item => {
+                    item.addEventListener('click', () => {
+                        const image = item.getAttribute('data-image');
+                        const emoji = item.getAttribute('data-emoji');
+                        const lightboxContent = document.getElementById('lightboxContent');
+                        
+                        if (image) {
+                            lightboxContent.innerHTML = `<img src="${image}" alt="" class="lightbox-image">`;
+                        } else {
+                            lightboxContent.innerHTML = `<div class="lightbox-emoji">${emoji}</div>`;
+                        }
+                        
+                        document.getElementById('lightbox').classList.add('active');
+                    });
+                });
+            });
+        }
+
+        // Show toast notification
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 4000);
+        }
+
+        // Update language
+        function updateLanguage(lang) {
+            currentLanguage = lang;
+            
+            document.querySelectorAll('[data-translate]').forEach(el => {
+                const key = el.getAttribute('data-translate');
+                if (translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                }
+            });
+
+            document.querySelectorAll('[data-translate-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-translate-placeholder');
+                if (translations[lang][key]) {
+                    el.placeholder = translations[lang][key];
+                }
+            });
+
+            products.forEach(product => {
+                const productData = translations[lang].products[product.id];
+                
+                document.querySelectorAll(`[data-product="${product.id}"]`).forEach(el => {
+                    if (el.classList.contains('product-name')) {
+                        el.textContent = productData.name;
+                    } else if (el.classList.contains('product-description')) {
+                        el.textContent = productData.description;
+                    } else if (el.classList.contains('product-specs')) {
+                        el.innerHTML = productData.specs.map(spec => 
+                            `<span class="spec-tag">${spec}</span>`
+                        ).join('');
+                    }
+                });
+            });
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Language switcher
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    updateLanguage(btn.getAttribute('data-lang'));
+                });
+            });
+
+            // Buy buttons
+            document.addEventListener('click', (e) => {
+                if (e.target.classList.contains('buy-btn')) {
+                    const productId = e.target.getAttribute('data-product-id');
+                    const productPrice = e.target.getAttribute('data-product-price');
+                    const productData = translations[currentLanguage].products[productId];
+                    
+                    selectedProduct = {
+                        id: productId,
+                        name: productData.name,
+                        price: productPrice
+                    };
+                    
+                    document.getElementById('instagramModal').classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+            });
+
+            // Modal close
+            document.getElementById('modalClose').addEventListener('click', closeModal);
+            document.getElementById('instagramModal').addEventListener('click', (e) => {
+                if (e.target.id === 'instagramModal') closeModal();
+            });
+
+            // Submit Instagram
+            document.getElementById('submitBtn').addEventListener('click', submitOrder);
+
+            // Enter key to submit
+            document.getElementById('instagramInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') submitOrder();
+            });
+
+            // Lightbox
+            document.getElementById('lightboxClose').addEventListener('click', () => {
+                document.getElementById('lightbox').classList.remove('active');
+            });
+
+            document.getElementById('lightbox').addEventListener('click', (e) => {
+                if (e.target.id === 'lightbox') {
+                    document.getElementById('lightbox').classList.remove('active');
+                }
+            });
+
+            // Vertical navigation
+            const scrollContainer = document.getElementById('scrollContainer');
+            const navDots = document.querySelectorAll('.nav-dot');
+            const productSlides = document.querySelectorAll('.product-slide');
+            let currentSlide = 0;
+
+            function updateActiveDot() {
+                const scrollTop = scrollContainer.scrollTop;
+                const slideHeight = window.innerHeight;
+                const newSlide = Math.round(scrollTop / slideHeight);
+                
+                if (newSlide !== currentSlide) {
+                    productSlides[currentSlide].classList.remove('active');
+                    currentSlide = newSlide;
+                    productSlides[currentSlide].classList.add('active');
+                    
+                    navDots.forEach((dot, index) => {
+                        dot.classList.toggle('active', index === currentSlide);
+                    });
+                }
+            }
+
+            navDots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    productSlides[index].scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+
+            scrollContainer.addEventListener('scroll', () => {
+                updateActiveDot();
+                scrollContainer.classList.add('scrolled');
+            });
+
+            // Hide scroll hint on any touch/scroll interaction
+            let scrollHintHidden = false;
+            const hideScrollHint = () => {
+                if (!scrollHintHidden) {
+                    scrollContainer.classList.add('scrolled');
+                    scrollHintHidden = true;
+                }
+            };
+
+            scrollContainer.addEventListener('touchstart', hideScrollHint, { once: true });
+            scrollContainer.addEventListener('wheel', hideScrollHint, { once: true });
+            
+            // Also hide on gallery interaction
+            document.querySelectorAll('.gallery-wrapper').forEach(wrapper => {
+                wrapper.addEventListener('touchstart', hideScrollHint, { once: true });
+                wrapper.addEventListener('mousedown', hideScrollHint, { once: true });
+            });
+
+            // Set first slide as active
+            productSlides[0].classList.add('active');
+
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeModal();
+                    document.getElementById('lightbox').classList.remove('active');
+                }
+            });
+        }
+
+        // Close modal
+        function closeModal() {
+            document.getElementById('instagramModal').classList.remove('active');
+            document.body.style.overflow = '';
+            document.getElementById('instagramInput').value = '';
+            document.getElementById('errorMessage').style.display = 'none';
+        }
+
+        // Submit order to Telegram
+        async function submitOrder() {
+            const instagram = document.getElementById('instagramInput').value.trim();
+            const submitBtn = document.getElementById('submitBtn');
+            const errorMsg = document.getElementById('errorMessage');
+
+            if (!instagram) {
+                errorMsg.textContent = translations[currentLanguage].errorMessage;
+                errorMsg.style.display = 'block';
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = '...';
+
+            const message = `🛍️ New Order!\n\n📦 Product: ${selectedProduct.name}\n💰 Price: $${selectedProduct.price}\n📱 Instagram: ${instagram}\n🌐 Language: ${currentLanguage.toUpperCase()}`;
+
+            try {
+                const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        chat_id: TELEGRAM_CHAT_ID,
+                        text: message,
+                        parse_mode: 'HTML'
+                    })
+                });
+
+                if (response.ok) {
+                    closeModal();
+                    showToast();
+                    errorMsg.style.display = 'none';
+                } else {
+                    throw new Error('Failed to send');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                errorMsg.style.display = 'block';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = translations[currentLanguage].submitButton;
+            }
+        }
+
+        // Initialize app
+        init();
+    </script>
+</body>
+</html>

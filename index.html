@@ -4,6 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ta Sho Plete - Premium Hair Extensions</title>
+    
+    <!-- Google Analytics 4 (GA4) -->
+    <!-- Replace GA_MEASUREMENT_ID with your actual Google Analytics Measurement ID -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JG6M2VJFWC"></script>
+
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-JG6M2VJFWC');
+    </script>
+    
     <style>
         * {
             margin: 0;
@@ -997,6 +1010,21 @@
         const TELEGRAM_BOT_TOKEN = '8459093280:AAGWfIASAQ4u6Dqlz7hbDSJxCl8dl9uFNxY';
         const TELEGRAM_CHAT_ID = '470332661'; // Replace with your chat ID
         
+        // Google Analytics Helper Functions
+        function trackEvent(eventName, eventParams = {}) {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', eventName, eventParams);
+            }
+        }
+        
+        function trackPageView(pagePath) {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'page_view', {
+                    page_path: pagePath
+                });
+            }
+        }
+        
         // Translations
         const translations = {
             en: {
@@ -1327,7 +1355,14 @@
                     item.addEventListener('click', () => {
                         const mediaData = item.getAttribute('data-media');
                         const emoji = item.getAttribute('data-emoji');
+                        const mediaIndex = item.getAttribute('data-media-index');
                         const lightboxContent = document.getElementById('lightboxContent');
+                        
+                        // Track media view
+                        trackEvent('view_media', {
+                            media_type: mediaData && mediaData !== 'null' ? 'image_video' : 'emoji',
+                            media_index: parseInt(mediaIndex)
+                        });
 
                         if (mediaData && mediaData !== 'null') {
                             try {
@@ -1367,6 +1402,12 @@
         // Update language
         function updateLanguage(lang) {
             currentLanguage = lang;
+            
+            // Track language change
+            trackEvent('language_change', {
+                language: lang,
+                previous_language: currentLanguage
+            });
             
             document.querySelectorAll('[data-translate]').forEach(el => {
                 const key = el.getAttribute('data-translate');
@@ -1423,6 +1464,17 @@
                         price: productPrice
                     };
                     
+                    // Track product view/interest
+                    trackEvent('view_item', {
+                        currency: 'USD',
+                        value: parseFloat(productPrice),
+                        items: [{
+                            item_id: productId,
+                            item_name: productData.name,
+                            price: parseFloat(productPrice)
+                        }]
+                    });
+                    
                     document.getElementById('instagramModal').classList.add('active');
                     document.body.style.overflow = 'hidden';
                 }
@@ -1468,6 +1520,15 @@
                     productSlides[currentSlide].classList.remove('active');
                     currentSlide = newSlide;
                     productSlides[currentSlide].classList.add('active');
+                    
+                    // Track product scroll/view
+                    const productId = products[currentSlide]?.id;
+                    if (productId) {
+                        trackEvent('product_scroll', {
+                            product_id: productId,
+                            product_position: currentSlide
+                        });
+                    }
                     
                     navDots.forEach((dot, index) => {
                         dot.classList.toggle('active', index === currentSlide);
@@ -1555,6 +1616,19 @@
                 });
 
                 if (response.ok) {
+                    // Track successful purchase
+                    trackEvent('purchase', {
+                        currency: 'USD',
+                        value: parseFloat(selectedProduct.price),
+                        transaction_id: Date.now().toString(),
+                        items: [{
+                            item_id: selectedProduct.id,
+                            item_name: selectedProduct.name,
+                            price: parseFloat(selectedProduct.price),
+                            quantity: 1
+                        }]
+                    });
+                    
                     closeModal();
                     showToast();
                     errorMsg.style.display = 'none';
@@ -1564,6 +1638,13 @@
             } catch (error) {
                 console.error('Error:', error);
                 errorMsg.style.display = 'block';
+                
+                // Track failed purchase attempt
+                trackEvent('purchase_failed', {
+                    product_id: selectedProduct.id,
+                    product_name: selectedProduct.name,
+                    error: 'telegram_api_error'
+                });
             } finally {
                 submitBtn.disabled = false;
                 submitBtn.textContent = translations[currentLanguage].submitButton;

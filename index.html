@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 
-    <title>Ta Sho Plete - Braids with Curls + Weaving | Premium Hair Extensions & Braids</title>
+    <title>Ta Sho Plete - Braids with Curls | Premium Hair Extensions & Braids</title>
     
     <!-- Primary Meta Tags -->
-    <meta name="title" content="Ta Sho Plete - Braids with Curls + Weaving | Premium Hair Extensions & Braids">
-    <meta name="description" content="Shop premium quality hair extensions at Ta Sho Plete. Handcrafted braids and extensions including Braids with Curls + Weaving. Transform your look today!">
-    <meta name="keywords" content="hair extensions, premium hair extensions, human hair extensions, braids, dreadlocks, bohemian braids, braids with curls + weaving">
+    <meta name="title" content="Ta Sho Plete - Braids with Curls | Premium Hair Extensions & Braids">
+    <meta name="description" content="Shop premium quality hair extensions at Ta Sho Plete. Handcrafted braids and extensions including Braids with Curls. Transform your look today!">
+    <meta name="keywords" content="hair extensions, premium hair extensions, human hair extensions, braids, dreadlocks, bohemian braids, braids with curls">
     <meta name="author" content="Ta Sho Plete">
     <meta name="robots" content="index, follow">
     <meta name="language" content="English, Ukrainian, Spanish">
@@ -19,8 +19,8 @@
     <!-- Open Graph / Facebook Meta Tags -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://braids-landing.onrender.com/">
-    <meta property="og:title" content="Ta Sho Plete - Braids with Curls + Weaving | Premium Hair Extensions & Braids">
-    <meta property="og:description" content="Shop premium quality hair extensions at Ta Sho Plete. Handcrafted braids and extensions including Braids with Curls + Weaving. Transform your look today!">
+    <meta property="og:title" content="Ta Sho Plete - Braids with Curls | Premium Hair Extensions & Braids">
+    <meta property="og:description" content="Shop premium quality hair extensions at Ta Sho Plete. Handcrafted braids and extensions including Braids with Curls. Transform your look today!">
     <meta property="og:image" content="https://braids-landing.onrender.com/assets/seo/og-image.jpg">
     <meta property="og:site_name" content="Ta Sho Plete">
     <meta property="og:locale" content="en_US">
@@ -30,8 +30,8 @@
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://braids-landing.onrender.com/">
-    <meta name="twitter:title" content="Ta Sho Plete - Braids with Curls + Weaving | Premium Hair Extensions & Braids">
-    <meta name="twitter:description" content="Shop premium quality hair extensions at Ta Sho Plete. Handcrafted braids and extensions including Braids with Curls + Weaving. Transform your look today!">
+    <meta name="twitter:title" content="Ta Sho Plete - Braids with Curls | Premium Hair Extensions & Braids">
+    <meta name="twitter:description" content="Shop premium quality hair extensions at Ta Sho Plete. Handcrafted braids and extensions including Braids with Curls. Transform your look today!">
     <meta name="twitter:image" content="https://braids-landing.onrender.com/assets/seo/twitter-image.jpg">
     
     <!-- Additional SEO Meta Tags -->
@@ -90,12 +90,12 @@
             {
                   "@type": "Product",
                   "position": 1,
-                  "name": "Braids with Curls + Weaving",
+                  "name": "Braids with Curls",
                   "description": "A set of braids with added curls and integrated weaving",
                   "image": "./assets/products/braidsWithCurls01/01.webp",
                   "offers": {
                         "@type": "Offer",
-                        "price": "99",
+                        "price": "280",
                         "priceCurrency": "USD",
                         "availability": "https://schema.org/InStock",
                         "url": "https://braids-landing.onrender.com/#braidsWithCurls01"
@@ -162,10 +162,40 @@
         }
 
         .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
             font-size: 1.2rem;
             font-weight: 700;
             color: var(--text-dark);
             letter-spacing: 1px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: translateY(-2px);
+        }
+
+        .instagram-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 0.85rem;
+            box-shadow: 0 2px 8px rgba(188, 24, 136, 0.3);
+            transition: all 0.3s ease;
+            line-height: 1;
+        }
+
+        .logo:hover .instagram-icon {
+            box-shadow: 0 4px 12px rgba(188, 24, 136, 0.4);
+            transform: scale(1.05);
         }
 
         .language-selector {
@@ -383,6 +413,61 @@
         .product-info {
             text-align: center;
             width: 100%;
+        }
+
+        /* Instagram CTA Card Styles */
+        .instagram-cta-card {
+            background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            border-radius: 30px;
+            padding: 3rem 2rem;
+            text-align: center;
+            color: white;
+            box-shadow: 0 15px 40px rgba(188, 24, 136, 0.3);
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .instagram-cta-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .instagram-cta-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .instagram-cta-description {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            line-height: 1.6;
+        }
+
+        .instagram-cta-button {
+            background: white;
+            color: #bc1888;
+            border: none;
+            padding: 1rem 3rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .instagram-cta-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .instagram-cta-button:active {
+            transform: translateY(-1px) scale(1.02);
         }
 
         .product-name {
@@ -875,6 +960,12 @@
                 font-size: 1rem;
             }
 
+            .instagram-icon {
+                width: 28px;
+                height: 28px;
+                font-size: 0.75rem;
+            }
+
             .language-selector {
                 padding: 0.3rem;
             }
@@ -1041,7 +1132,10 @@
 <body>
     <!-- Top Navigation -->
     <div class="top-nav">
-        <div class="logo">TA SHO PLETE</div>
+        <a href="https://www.instagram.com/ta_sho_plete/" target="_blank" rel="noopener noreferrer" class="logo" id="logoInstagramLink">
+            <div class="instagram-icon">@</div>
+            <span>TA SHO PLETE</span>
+        </a>
         <div class="language-selector">
             <button class="lang-btn active" data-lang="en">EN</button>
             <button class="lang-btn" data-lang="uk">UA</button>
@@ -1051,7 +1145,7 @@
 
     <!-- Side Navigation Dots -->
     <div class="side-nav" id="sideNav">
-        <div class="nav-dot active" data-index="0"></div>
+        <!-- Navigation dots will be generated by JavaScript -->
     </div>
 
     <!-- Scroll Container -->
@@ -1136,12 +1230,13 @@
                 featured: 'Featured',
                 products: {
                               "braidsWithCurls01": {
-                                        "name": "Braids with Curls + Weaving",
+                                        "name": "Braids with Curls",
                                         "description": "A set of braids with added curls and integrated weaving",
                                         "specs": [
                                                   "55 cm",
                                                   "Requires maintenance",
-                                                  "Reusable"
+                                                  "Reusable",
+                                                  "Multicolor options"
                                         ]
                               }
                     }
@@ -1168,7 +1263,8 @@
                                         "specs": [
                                                   "55 см",
                                                   "Потребує догляду",
-                                                  "Багаторазовий"
+                                                  "Багаторазовий",
+                                                  "Різні кольори"
                                         ]
                               }
                     }
@@ -1190,12 +1286,13 @@
                 featured: 'Destacado',
                 products: {
                               "braidsWithCurls01": {
-                                        "name": "Trenzas con rizos + entretejido",
+                                        "name": "Trenzas con rizos",
                                         "description": "Conjunto de trenzas con rizos añadidos y entretejido integrado",
                                         "specs": [
                                                   "55 cm",
                                                   "Requiere mantenimiento",
-                                                  "Reutilizable"
+                                                  "Reutilizable",
+                                                  "Opciones multicolor"
                                         ]
                               }
                     }
@@ -1208,11 +1305,10 @@
         const products = [
                   {
                             "id": "braidsWithCurls01",
-                            "price": 99,
+                            "price": 280,
                             "badge": "bestSeller",
                             "media": [
                                       "./assets/products/braidsWithCurls01/01.webp",
-                                      "./assets/products/braidsWithCurls01/02.mp4",
                                       "./assets/products/braidsWithCurls01/03.webp",
                                       "./assets/products/braidsWithCurls01/04.webp"
                             ],
@@ -1231,8 +1327,23 @@
         // Initialize
         function init() {
             renderProducts();
+            setupNavigationDots();
             setupEventListeners();
             updateLanguage('en');
+        }
+
+        // Setup side navigation dots
+        function setupNavigationDots() {
+            const sideNav = document.getElementById('sideNav');
+            sideNav.innerHTML = '';
+            const totalSlides = products.length + 1; // products + Instagram CTA
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('div');
+                dot.classList.add('nav-dot');
+                if (i === 0) dot.classList.add('active');
+                dot.setAttribute('data-index', i);
+                sideNav.appendChild(dot);
+            }
         }
 
         // Helper function to determine media type
@@ -1256,7 +1367,7 @@
         // Render products
         function renderProducts() {
             const container = document.getElementById('scrollContainer');
-            container.innerHTML = products.map((product, index) => `
+            const productSlides = products.map((product, index) => `
                 <div class="product-slide" data-slide-index="${index}">
                     <div class="product-content">
                         <div class="gallery-container" data-product-index="${index}">
@@ -1299,6 +1410,22 @@
                     </div>
                 </div>
             `).join('');
+
+            // Add Instagram CTA slide
+            const instagramCtaSlide = `
+                <div class="product-slide" data-slide-index="${products.length}">
+                    <div class="product-content">
+                        <div class="instagram-cta-card">
+                            <div class="instagram-cta-icon">📸</div>
+                            <h2 class="instagram-cta-title" data-translate="instagramCtaTitle">See More on Instagram</h2>
+                            <p class="instagram-cta-description" data-translate="instagramCtaDescription">Discover our full collection, styling tips, and customer transformations</p>
+                            <button class="instagram-cta-button" id="instagramCtaButton" data-translate="instagramCtaButton">Visit Instagram</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            container.innerHTML = productSlides + instagramCtaSlide;
 
             setupGalleries();
         }
@@ -1459,6 +1586,31 @@
 
         // Setup event listeners
         function setupEventListeners() {
+            // Logo Instagram link tracking
+            const logoInstagramLink = document.getElementById('logoInstagramLink');
+            if (logoInstagramLink) {
+                logoInstagramLink.addEventListener('click', () => {
+                    trackEvent('click', {
+                        event_category: 'engagement',
+                        event_label: 'logo_instagram_link',
+                        value: 1
+                    });
+                });
+            }
+
+            // Instagram CTA button tracking
+            const instagramCtaButton = document.getElementById('instagramCtaButton');
+            if (instagramCtaButton) {
+                instagramCtaButton.addEventListener('click', () => {
+                    trackEvent('click', {
+                        event_category: 'engagement',
+                        event_label: 'instagram_cta_button',
+                        value: 1
+                    });
+                    window.open('https://www.instagram.com/ta_sho_plete/', '_blank', 'noopener,noreferrer');
+                });
+            }
+
             // Language switcher
             document.querySelectorAll('.lang-btn').forEach(btn => {
                 btn.addEventListener('click', () => {

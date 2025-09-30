@@ -210,8 +210,9 @@
             transform: scale(0.98);
         }
 
-        /* Image support with fallback to emoji */
-        .gallery-item-image {
+        /* Image and video support with fallback to emoji */
+        .gallery-item-image,
+        .gallery-item-video {
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -961,31 +962,38 @@
             }
         };
 
-        // Product data with image support (empty images will show emojis as fallback)
+        // Product data with image and video support (empty media will show emojis as fallback)
+        // For videos, use format: { type: 'video', src: 'path/to/video.mp4' }
+        // For images, use format: { type: 'image', src: 'path/to/image.jpg' } or just 'path/to/image.jpg' (string)
         const products = [
             { id: 'naturalWave', price: 99, badge: 'bestSeller',
-              images: ['https://i.etsystatic.com/58470733/r/il/422481/6936642930/il_1588xN.6936642930_fzal.jpg', 'https://i.etsystatic.com/58470733/r/il/61887f/6984609439/il_1588xN.6984609439_pjr2.jpg', 'https://i.etsystatic.com/58470733/r/il/b6e5b8/6936639596/il_1588xN.6936639596_5x8e.jpg', 'https://i.etsystatic.com/58470733/r/il/bc59ad/6936639542/il_1588xN.6936639542_2wy5.jpg'], // Add URLs here: ['url1.jpg', 'url2.jpg', ...]
-              emojis: ['🌊', '💧', '🌀', '💎'] 
+              media: [
+                'https://i.etsystatic.com/58470733/r/il/422481/6936642930/il_1588xN.6936642930_fzal.jpg',
+                'https://i.etsystatic.com/58470733/r/il/61887f/6984609439/il_1588xN.6984609439_pjr2.jpg',
+                'https://i.etsystatic.com/58470733/r/il/b6e5b8/6936639596/il_1588xN.6936639596_5x8e.jpg',
+                'https://i.etsystatic.com/58470733/r/il/bc59ad/6936639542/il_1588xN.6936639542_2wy5.jpg'
+              ],
+              emojis: ['🌊', '💧', '🌀', '💎']
             },
-            { id: 'silkyStraight', price: 229, badge: 'premium', 
-              images: ['', '', '', ''], 
-              emojis: ['✨', '🌟', '⭐', '💫'] 
+            { id: 'silkyStraight', price: 229, badge: 'premium',
+              media: ['./2-1.webp', { type: 'video', src: './2-1.mp4' }, '', ''],
+              emojis: ['✨', '🌟', '⭐', '💫']
             },
-            { id: 'deepCurly', price: 249, badge: 'trending', 
-              images: ['', '', '', ''], 
-              emojis: ['🌺', '🌸', '🌼', '🌻'] 
+            { id: 'deepCurly', price: 249, badge: 'trending',
+              media: ['', '', '', ''],
+              emojis: ['🌺', '🌸', '🌼', '🌻']
             },
-            { id: 'bodyWave', price: 209, badge: 'luxury', 
-              images: ['', '', '', ''], 
-              emojis: ['💫', '🌙', '☁️', '🤍'] 
+            { id: 'bodyWave', price: 209, badge: 'luxury',
+              media: ['', '', '', ''],
+              emojis: ['💫', '🌙', '☁️', '🤍']
             },
-            { id: 'kinkyCoily', price: 269, badge: 'new', 
-              images: ['', '', '', ''], 
-              emojis: ['🌸', '🌹', '🏵️', '💮'] 
+            { id: 'kinkyCoily', price: 269, badge: 'new',
+              media: ['', '', '', ''],
+              emojis: ['🌸', '🌹', '🏵️', '💮']
             },
-            { id: 'looseWave', price: 199, badge: 'featured', 
-              images: ['', '', '', ''], 
-              emojis: ['🦋', '🌈', '✨', '🎨'] 
+            { id: 'looseWave', price: 199, badge: 'featured',
+              media: ['', '', '', ''],
+              emojis: ['🦋', '🌈', '✨', '🎨']
             }
         ];
 
@@ -999,6 +1007,24 @@
             updateLanguage('en');
         }
 
+        // Helper function to determine media type
+        function getMediaType(mediaItem) {
+            if (!mediaItem) return null;
+            if (typeof mediaItem === 'object' && mediaItem.type) {
+                return mediaItem;
+            }
+            // Auto-detect video extensions
+            if (typeof mediaItem === 'string') {
+                const videoExtensions = ['.mp4', '.webm', '.ogg', '.mov'];
+                const isVideo = videoExtensions.some(ext => mediaItem.toLowerCase().includes(ext));
+                return {
+                    type: isVideo ? 'video' : 'image',
+                    src: mediaItem
+                };
+            }
+            return null;
+        }
+
         // Render products
         function renderProducts() {
             const container = document.getElementById('scrollContainer');
@@ -1008,13 +1034,21 @@
                         <div class="gallery-container" data-product-index="${index}">
                             <div class="gallery-wrapper">
                                 <div class="gallery-track">
-                                    ${product.images.map((img, imgIndex) => `
-                                        <div class="gallery-item" data-image="${img}" data-emoji="${product.emojis[imgIndex]}">
-                                            ${img ? `<img src="${img}" alt="" class="gallery-item-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">` : ''}
-                                            <div class="gallery-item-emoji" style="${img ? 'display:none' : ''}">${product.emojis[imgIndex]}</div>
-                                            ${imgIndex === 0 ? `<div class="product-badge" data-translate="${product.badge}"></div>` : ''}
+                                    ${product.media.map((mediaItem, mediaIndex) => {
+                                        const media = getMediaType(mediaItem);
+                                        const hasMedia = media && media.src;
+
+                                        return `
+                                        <div class="gallery-item" data-media='${JSON.stringify(media)}' data-emoji="${product.emojis[mediaIndex]}" data-media-index="${mediaIndex}">
+                                            ${hasMedia && media.type === 'image' ?
+                                                `<img src="${media.src}" alt="" class="gallery-item-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">` :
+                                            hasMedia && media.type === 'video' ?
+                                                `<video src="${media.src}" class="gallery-item-video" muted playsinline loop preload="metadata"></video>` : ''}
+                                            <div class="gallery-item-emoji" style="${hasMedia ? 'display:none' : ''}">${product.emojis[mediaIndex]}</div>
+                                            ${mediaIndex === 0 ? `<div class="product-badge" data-translate="${product.badge}"></div>` : ''}
                                         </div>
-                                    `).join('')}
+                                        `;
+                                    }).join('')}
                                 </div>
                             </div>
                             <div class="gallery-indicators"></div>
@@ -1041,13 +1075,13 @@
             setupGalleries();
         }
 
-        // Setup galleries with clickable dots
+        // Setup galleries with clickable dots and video autoplay
         function setupGalleries() {
             document.querySelectorAll('.gallery-container').forEach(container => {
                 const wrapper = container.querySelector('.gallery-wrapper');
                 const items = container.querySelectorAll('.gallery-item');
                 const indicators = container.querySelector('.gallery-indicators');
-                
+
                 // Create dots
                 items.forEach((_, index) => {
                     const dot = document.createElement('div');
@@ -1059,18 +1093,42 @@
 
                 const dots = indicators.querySelectorAll('.gallery-dot');
 
-                // Update active dot on scroll
-                wrapper.addEventListener('scroll', () => {
+                // Function to check if an item is in view and play/pause videos
+                function updateVisibleMedia() {
                     const scrollLeft = wrapper.scrollLeft;
                     const itemWidth = items[0].offsetWidth + 24; // item width + gap
                     const currentIndex = Math.round(scrollLeft / itemWidth);
-                    
+
+                    // Update dots
                     dots.forEach((dot, index) => {
                         dot.classList.toggle('active', index === currentIndex);
                     });
-                });
 
-                // Click dot to scroll to image
+                    // Play/pause videos based on visibility
+                    items.forEach((item, index) => {
+                        const video = item.querySelector('.gallery-item-video');
+                        if (video) {
+                            if (index === currentIndex) {
+                                // Autoplay video when it becomes visible
+                                video.play().catch(() => {
+                                    // Autoplay might be blocked, silently ignore
+                                });
+                            } else {
+                                // Pause video when not visible
+                                video.pause();
+                                video.currentTime = 0; // Reset to beginning
+                            }
+                        }
+                    });
+                }
+
+                // Update active dot and video playback on scroll
+                wrapper.addEventListener('scroll', updateVisibleMedia);
+
+                // Initial check for first item
+                updateVisibleMedia();
+
+                // Click dot to scroll to image/video
                 dots.forEach((dot, index) => {
                     dot.addEventListener('click', () => {
                         const itemWidth = items[0].offsetWidth + 24;
@@ -1081,19 +1139,32 @@
                     });
                 });
 
-                // Click image to open lightbox
+                // Click image/video to open lightbox
                 items.forEach(item => {
                     item.addEventListener('click', () => {
-                        const image = item.getAttribute('data-image');
+                        const mediaData = item.getAttribute('data-media');
                         const emoji = item.getAttribute('data-emoji');
                         const lightboxContent = document.getElementById('lightboxContent');
-                        
-                        if (image) {
-                            lightboxContent.innerHTML = `<img src="${image}" alt="" class="lightbox-image">`;
+
+                        if (mediaData && mediaData !== 'null') {
+                            try {
+                                const media = JSON.parse(mediaData);
+                                if (media && media.src) {
+                                    if (media.type === 'video') {
+                                        lightboxContent.innerHTML = `<video src="${media.src}" class="lightbox-image" controls muted autoplay loop playsinline></video>`;
+                                    } else {
+                                        lightboxContent.innerHTML = `<img src="${media.src}" alt="" class="lightbox-image">`;
+                                    }
+                                } else {
+                                    lightboxContent.innerHTML = `<div class="lightbox-emoji">${emoji}</div>`;
+                                }
+                            } catch (e) {
+                                lightboxContent.innerHTML = `<div class="lightbox-emoji">${emoji}</div>`;
+                            }
                         } else {
                             lightboxContent.innerHTML = `<div class="lightbox-emoji">${emoji}</div>`;
                         }
-                        
+
                         document.getElementById('lightbox').classList.add('active');
                     });
                 });

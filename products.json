@@ -1,0 +1,51 @@
+{
+  "products": [
+    {
+      "id": "braidsWithCurls01",
+      "price": 279,
+      "badge": "bestSeller",
+      "media": [
+        {
+          "type": "image",
+          "src": "./assets/products/braidsWithCurls01/optimized/01-640w.webp",
+          "srcset": "./assets/products/braidsWithCurls01/optimized/01-320w.webp 320w, ./assets/products/braidsWithCurls01/optimized/01-640w.webp 640w, ./assets/products/braidsWithCurls01/optimized/01-1024w.webp 1024w",
+          "sizes": "(max-width: 320px) 320px, (max-width: 640px) 640px, 1024px"
+        },
+        {
+          "type": "image",
+          "src": "./assets/products/braidsWithCurls01/optimized/03-640w.webp",
+          "srcset": "./assets/products/braidsWithCurls01/optimized/03-320w.webp 320w, ./assets/products/braidsWithCurls01/optimized/03-640w.webp 640w, ./assets/products/braidsWithCurls01/optimized/03-1024w.webp 1024w",
+          "sizes": "(max-width: 320px) 320px, (max-width: 640px) 640px, 1024px"
+        },
+        {
+          "type": "image",
+          "src": "./assets/products/braidsWithCurls01/optimized/04-640w.webp",
+          "srcset": "./assets/products/braidsWithCurls01/optimized/04-320w.webp 320w, ./assets/products/braidsWithCurls01/optimized/04-640w.webp 640w, ./assets/products/braidsWithCurls01/optimized/04-1024w.webp 1024w",
+          "sizes": "(max-width: 320px) 320px, (max-width: 640px) 640px, 1024px"
+        }
+      ],
+      "emojis": ["🌺", "🎨", "✨", "💫"],
+      "translations": {
+        "en": {
+          "name": "Braids with Curls",
+          "description": "A set of braids with added curls and integrated weaving",
+          "specs": ["55 cm","Requires maintenance", "Reusable", "Multicolor options"]
+        },
+        "uk": {
+          "name": "Коси з кучерями",
+          "description": "Комплект косичок з додаванням кучерів + вплетення",
+          "specs": ["55 см","Потребує догляду", "Багаторазовий", "Різні кольори"]
+        },
+        "es": {
+          "name": "Trenzas con rizos",
+          "description": "Conjunto de trenzas con rizos añadidos y entretejido integrado",
+          "specs": ["55 cm","Requiere mantenimiento", "Reutilizable", "Opciones multicolor"]
+        }
+      },
+      "rating": {
+        "value": "4.8",
+        "reviewCount": "127"
+      }
+    }
+  ]
+}

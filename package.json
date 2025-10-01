@@ -1,0 +1,23 @@
+{
+  "name": "braids-landing-generator",
+  "version": "1.0.0",
+  "description": "Automated product content generator for Ta Sho Plete hair extensions landing page",
+  "main": "generate-html.js",
+  "scripts": {
+    "generate": "node generate-html.js",
+    "update": "node generate-html.js"
+  },
+  "keywords": [
+    "html-generator",
+    "product-automation",
+    "landing-page"
+  ],
+  "author": "",
+  "license": "ISC",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "dependencies": {
+    "sharp": "^0.34.4"
+  }
+}

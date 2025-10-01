@@ -1,0 +1,1012 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --beige-light: #F5F1E8;
+    --beige: #E8DCC4;
+    --beige-dark: #D4C4A8;
+    --beige-darker: #B8A888;
+    --text-dark: #3D3427;
+    --text-medium: #6B5D4F;
+    --glass-bg: rgba(232, 220, 196, 0.4);
+    --glass-border: rgba(255, 255, 255, 0.3);
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--beige-light);
+    color: var(--text-dark);
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* Top Navigation */
+.top-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    background: linear-gradient(to bottom, rgba(245, 241, 232, 0.9), transparent);
+    backdrop-filter: blur(10px);
+    pointer-events: none;
+}
+
+.logo, .language-selector {
+    pointer-events: auto;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    letter-spacing: 1px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.logo:hover {
+    transform: translateY(-2px);
+}
+
+.instagram-icon {
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    font-size: 0.85rem;
+    box-shadow: 0 2px 8px rgba(188, 24, 136, 0.3);
+    transition: all 0.3s ease;
+    line-height: 1;
+}
+
+.logo:hover .instagram-icon {
+    box-shadow: 0 4px 12px rgba(188, 24, 136, 0.4);
+    transform: scale(1.05);
+}
+
+.language-selector {
+    display: flex;
+    gap: 0.5rem;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 25px;
+    padding: 0.5rem;
+}
+
+.lang-btn {
+    padding: 0.5rem 1rem;
+    background: transparent;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-medium);
+    transition: all 0.3s ease;
+}
+
+.lang-btn.active {
+    background: rgba(255, 255, 255, 0.8);
+    color: var(--text-dark);
+}
+
+.lang-btn:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+/* Vertical Scroll Container */
+.scroll-container {
+    height: 100vh;
+    width: 100%;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.scroll-container::-webkit-scrollbar {
+    display: none;
+}
+
+/* Product Card - Full Screen with smooth gradient background */
+.product-slide {
+    height: 100vh;
+    width: 100%;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6rem 2rem 2rem;
+    position: relative;
+    background: linear-gradient(135deg, var(--beige-light) 0%, var(--beige) 100%);
+    transition: background 0.5s ease;
+}
+
+/* Smooth background overlay animation */
+.product-slide::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 30% 50%, rgba(232, 220, 196, 0.3), transparent 70%);
+    opacity: 0;
+    transition: opacity 1s ease;
+    pointer-events: none;
+}
+
+.product-slide.active::before {
+    opacity: 1;
+}
+
+/* Product Content */
+.product-content {
+    max-width: 500px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: fadeInUp 0.8s ease;
+}
+
+/* Horizontal Gallery Container - Redesigned */
+.gallery-container {
+    width: 100%;
+    max-width: 450px;
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.gallery-wrapper {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    cursor: grab;
+    padding: 2rem 0 7rem 0;
+    /* Smooth fade effect at edges like YouTube */
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+}
+
+.gallery-wrapper:active {
+    cursor: grabbing;
+}
+
+.gallery-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+.gallery-track {
+    display: flex;
+    gap: 1.5rem;
+    padding: 0 calc((100% - 350px) / 2);
+}
+
+.gallery-item {
+    min-width: 350px;
+    height: 350px;
+    scroll-snap-align: center;
+    background: var(--glass-bg);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border: 1px solid var(--glass-border);
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.gallery-item:hover {
+    transform: scale(1.02);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+}
+
+.gallery-item:active {
+    transform: scale(0.98);
+}
+
+/* Image and video support with fallback to emoji */
+.gallery-item-image,
+.gallery-item-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 30px;
+}
+
+.gallery-item-emoji {
+    font-size: 6rem;
+    animation: float 3s ease-in-out infinite;
+}
+
+.product-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-dark);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    z-index: 2;
+}
+
+/* Gallery Indicators - Now clickable */
+.gallery-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: -6rem;
+    margin-bottom: 2rem;
+}
+
+.gallery-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(61, 52, 39, 0.3);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.gallery-dot:hover {
+    background: rgba(61, 52, 39, 0.5);
+    transform: scale(1.2);
+}
+
+.gallery-dot.active {
+    background: var(--text-dark);
+    width: 24px;
+    border-radius: 4px;
+}
+
+/* Product Info */
+.product-info {
+    text-align: center;
+    width: 100%;
+}
+
+/* Instagram CTA Card Styles */
+.instagram-cta-card {
+    background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    border-radius: 30px;
+    padding: 3rem 2rem;
+    text-align: center;
+    color: white;
+    box-shadow: 0 15px 40px rgba(188, 24, 136, 0.3);
+    animation: fadeInUp 0.8s ease;
+}
+
+.instagram-cta-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    animation: float 3s ease-in-out infinite;
+}
+
+.instagram-cta-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    letter-spacing: 1px;
+}
+
+.instagram-cta-description {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    opacity: 0.95;
+    line-height: 1.6;
+}
+
+.instagram-cta-button {
+    background: white;
+    color: #bc1888;
+    border: none;
+    padding: 1rem 3rem;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.instagram-cta-button:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+.instagram-cta-button:active {
+    transform: translateY(-1px) scale(1.02);
+}
+
+.product-name {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+    letter-spacing: 1px;
+}
+
+.product-description {
+    font-size: 1rem;
+    color: var(--text-medium);
+    line-height: 1.6;
+    margin-bottom: 1.2rem;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.product-specs {
+    display: flex;
+    justify-content: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+}
+
+.spec-tag {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    padding: 0.5rem 1rem;
+    border-radius: 18px;
+    font-size: 0.8rem;
+    color: var(--text-dark);
+    font-weight: 600;
+}
+
+/* Price and CTA */
+.product-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.product-price {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--text-dark);
+}
+
+.buy-btn {
+    background: var(--text-dark);
+    color: var(--beige-light);
+    border: none;
+    padding: 1rem 3rem;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.buy-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+    background: var(--beige-darker);
+}
+
+/* Side Navigation Dots */
+.side-nav {
+    position: fixed;
+    right: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    z-index: 90;
+}
+
+.nav-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(61, 52, 39, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.nav-dot.active {
+    background: var(--text-dark);
+    height: 35px;
+    border-radius: 6px;
+}
+
+/* Scroll Hint - Only on first screen */
+.scroll-hint {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-medium);
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    animation: bounce 2s infinite;
+    opacity: 0.7;
+    pointer-events: none;
+    margin-top: 2rem;
+}
+
+.scroll-hint-arrow {
+    font-size: 1.5rem;
+}
+
+/* Toast Notification */
+.toast {
+    position: fixed;
+    top: 6rem;
+    right: 2rem;
+    background: rgba(76, 175, 80, 0.95);
+    color: white;
+    padding: 1.2rem 2rem;
+    border-radius: 25px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    z-index: 3000;
+    transform: translateX(400px);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.toast.show {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.toast-icon {
+    font-size: 1.5rem;
+}
+
+.toast-message {
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* Instagram Popup Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background: var(--beige-light);
+    border-radius: 30px;
+    padding: 3rem 2.5rem;
+    max-width: 450px;
+    width: 90%;
+    position: relative;
+    animation: scaleIn 0.3s ease;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--glass-bg);
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    color: var(--text-dark);
+}
+
+.modal-close:hover {
+    transform: rotate(90deg);
+    background: var(--beige-dark);
+}
+
+.modal-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.modal-subtitle {
+    font-size: 1rem;
+    color: var(--text-medium);
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.instagram-input {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    border: 2px solid var(--beige-dark);
+    border-radius: 25px;
+    background: white;
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.instagram-input:focus {
+    outline: none;
+    border-color: var(--text-dark);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.instagram-input::placeholder {
+    color: var(--text-medium);
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 1.2rem;
+    background: var(--text-dark);
+    color: var(--beige-light);
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.submit-btn:hover {
+    background: var(--beige-darker);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.submit-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.error-message {
+    display: none;
+    text-align: center;
+    padding: 1rem;
+    background: rgba(244, 67, 54, 0.1);
+    border-radius: 15px;
+    color: #c62828;
+    margin-top: 1rem;
+}
+
+/* Full Screen Lightbox */
+.lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.95);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease;
+}
+
+.lightbox.active {
+    display: flex;
+}
+
+.lightbox-content {
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+    animation: scaleIn 0.3s ease;
+}
+
+.lightbox-image {
+    max-width: 90vw;
+    max-height: 90vh;
+    width: auto;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.lightbox-emoji {
+    font-size: 15rem;
+    background: var(--glass-bg);
+    backdrop-filter: blur(30px);
+    border: 1px solid var(--glass-border);
+    border-radius: 30px;
+    padding: 3rem;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.lightbox-close {
+    position: absolute;
+    top: -3rem;
+    right: 0;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    color: var(--text-dark);
+}
+
+.lightbox-close:hover {
+    transform: scale(1.1) rotate(90deg);
+    background: rgba(255, 255, 255, 1);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Landscape Mode - Horizontal Layout */
+@media (orientation: landscape) and (max-height: 768px) {
+    .product-slide {
+        padding: 2rem;
+    }
+
+    .product-content {
+        max-width: 100%;
+        flex-direction: row;
+        align-items: stretch;
+        gap: 2rem;
+    }
+
+    /* Left side - Product Info */
+    .product-info {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: left;
+        order: 1;
+    }
+
+    .product-name {
+        font-size: 1.8rem;
+        margin-bottom: 0.6rem;
+    }
+
+    .product-description {
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+        max-width: 100%;
+    }
+
+    .product-specs {
+        justify-content: flex-start;
+        margin-bottom: 1rem;
+    }
+
+    .spec-tag {
+        font-size: 0.75rem;
+        padding: 0.4rem 0.8rem;
+    }
+
+    .product-footer {
+        justify-content: flex-start;
+        gap: 1.5rem;
+        margin-top: 0.5rem;
+    }
+
+    .product-price {
+        font-size: 1.8rem;
+    }
+
+    .buy-btn {
+        padding: 0.8rem 2rem;
+        font-size: 0.9rem;
+    }
+
+    /* Right side - Gallery and CTA */
+    .gallery-container {
+        flex: 1;
+        max-width: 50%;
+        margin-bottom: 0;
+        order: 2;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .gallery-wrapper {
+        padding: 1rem 0 4rem 0;
+        -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+        mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+    }
+
+    .gallery-track {
+        padding: 0 calc((100% - 300px) / 2);
+    }
+
+    .gallery-item {
+        min-width: 300px;
+        height: 300px;
+    }
+
+    .gallery-item-emoji {
+        font-size: 5rem;
+    }
+
+    .gallery-indicators {
+        margin-top: -3rem;
+        margin-bottom: 0;
+    }
+
+    .scroll-hint {
+        display: none;
+    }
+
+    /* Adjust navigation for landscape */
+    .top-nav {
+        padding: 0.8rem 1.5rem;
+    }
+
+    .logo {
+        font-size: 1rem;
+    }
+
+    .instagram-icon {
+        width: 28px;
+        height: 28px;
+        font-size: 0.75rem;
+    }
+
+    .language-selector {
+        padding: 0.3rem;
+    }
+
+    .lang-btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.85rem;
+    }
+
+    .side-nav {
+        right: 1rem;
+        gap: 0.8rem;
+    }
+
+    .nav-dot {
+        width: 10px;
+        height: 10px;
+    }
+
+    .nav-dot.active {
+        height: 28px;
+    }
+
+    /* Modal adjustments for landscape */
+    .modal-content {
+        max-width: 400px;
+        padding: 2rem 2rem;
+    }
+
+    .modal-title {
+        font-size: 1.5rem;
+    }
+
+    .modal-subtitle {
+        font-size: 0.9rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .instagram-input {
+        padding: 0.8rem 1.2rem;
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+    }
+
+    .submit-btn {
+        padding: 1rem;
+        font-size: 0.9rem;
+    }
+
+    /* Toast for landscape */
+    .toast {
+        top: 4rem;
+        right: 1.5rem;
+        padding: 1rem 1.5rem;
+    }
+
+    /* Lightbox adjustments */
+    .lightbox-emoji {
+        font-size: 10rem;
+        padding: 2rem;
+    }
+
+    .lightbox-close {
+        top: 1rem;
+        right: 1rem;
+    }
+
+    .lightbox-content {
+        max-height: 80vh;
+    }
+
+    .lightbox-image {
+        max-height: 80vh;
+    }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .product-slide {
+        padding: 5rem 1rem 1.5rem;
+    }
+
+    .gallery-container {
+        max-width: 100%;
+    }
+
+    .gallery-wrapper {
+        padding: 2rem 0 7rem 0;
+        /* Adjust mask for mobile */
+        -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+        mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+    }
+
+    .gallery-indicators {
+        margin-top: -4rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .gallery-track {
+        padding: 0 calc((100% - 280px) / 2);
+    }
+
+    .gallery-item {
+        min-width: 280px;
+        height: 280px;
+    }
+
+    .gallery-item-emoji {
+        font-size: 4.5rem;
+    }
+
+    .product-name {
+        font-size: 1.7rem;
+    }
+
+    .product-description {
+        font-size: 0.95rem;
+    }
+
+    .product-price {
+        font-size: 1.8rem;
+    }
+
+    .buy-btn {
+        padding: 0.9rem 2rem;
+        font-size: 0.9rem;
+    }
+
+    .product-footer {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .side-nav {
+        right: 1rem;
+    }
+
+    .scroll-hint {
+        bottom: 10rem;
+    }
+
+    .lightbox-emoji {
+        font-size: 8rem;
+        padding: 2rem;
+    }
+
+    .modal-content {
+        padding: 2.5rem 2rem;
+    }
+
+    .modal-title {
+        font-size: 1.5rem;
+    }
+
+    .toast {
+        top: 5rem;
+        right: 1rem;
+        left: 1rem;
+        padding: 1rem 1.5rem;
+    }
+}

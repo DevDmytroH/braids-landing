@@ -217,6 +217,7 @@ function renderProducts() {
                                             alt="Product image ${mediaIndex + 1}"
                                             class="gallery-item-image"
                                             loading="${loadingAttr}"
+                                            ${isFirstImage && index === 0 ? 'fetchpriority="high"' : ''}
                                             decoding="async"
                                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">` :
                                     hasMedia && media.type === 'video' ?

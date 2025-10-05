@@ -311,6 +311,104 @@ function updateIndexHTML() {
     console.log(`🌐 Updated translations for EN, UK, ES`);
     console.log(`🔍 Updated SEO structured data`);
     console.log(`🎯 Updated navigation dots`);
+
+    // Update main.js with new products data
+    updateMainJS();
+}
+
+// Function to update main.js with products data
+function updateMainJS() {
+    try {
+        const mainJSPath = './main.js';
+        let mainJS = fs.readFileSync(mainJSPath, 'utf8');
+
+        // Generate translations for main.js
+        const translations = generateTranslations();
+
+        // Generate products array
+        const productsArray = generateProductsArray();
+
+        // Build translations string
+        const translationsString = `const translations = {
+    en: {
+        swipeToExplore: 'Swipe to explore',
+        modalTitle: 'Complete Your Order',
+        modalSubtitle: 'Enter your Instagram to proceed',
+        instagramPlaceholder: '@your_instagram',
+        submitButton: 'Confirm Order',
+        toastMessage: "Order sent! We'll contact you soon.",
+        errorMessage: 'Failed to send order. Please try again.',
+        buyButton: 'Buy',
+        bestSeller: 'Best Seller',
+        premium: 'Premium',
+        trending: 'Trending',
+        luxury: 'Luxury',
+        new: 'New',
+        featured: 'Featured',
+        instagramCtaTitle: 'See More on Instagram',
+        instagramCtaDescription: 'Discover our full collection, styling tips, and customer transformations',
+        instagramCtaButton: 'Visit Instagram',
+        products: ${JSON.stringify(translations.en.products, null, 12).replace(/\n/g, '\n            ')}
+    },
+    uk: {
+        swipeToExplore: 'Гортайте для перегляду',
+        modalTitle: 'Завершіть замовлення',
+        modalSubtitle: 'Введіть ваш Instagram для продовження',
+        instagramPlaceholder: '@ваш_instagram',
+        submitButton: 'Підтвердити замовлення',
+        toastMessage: 'Замовлення відправлено! Ми зв\\'яжемося з вами найближчим часом.',
+        errorMessage: 'Не вдалося відправити замовлення. Спробуйте ще раз.',
+        buyButton: 'Купити',
+        bestSeller: 'Бестселер',
+        premium: 'Преміум',
+        trending: 'Тренд',
+        luxury: 'Люкс',
+        new: 'Новинка',
+        featured: 'Рекомендовано',
+        instagramCtaTitle: 'Дивіться більше в Instagram',
+        instagramCtaDescription: 'Відкрийте нашу повну колекцію, поради зі стилю та перетворення клієнтів',
+        instagramCtaButton: 'Відвідати Instagram',
+        products: ${JSON.stringify(translations.uk.products, null, 12).replace(/\n/g, '\n            ')}
+    },
+    es: {
+        swipeToExplore: 'Desliza para explorar',
+        modalTitle: 'Completa tu pedido',
+        modalSubtitle: 'Ingresa tu Instagram para continuar',
+        instagramPlaceholder: '@tu_instagram',
+        submitButton: 'Confirmar pedido',
+        toastMessage: '¡Pedido enviado! Te contactaremos pronto.',
+        errorMessage: 'Error al enviar el pedido. Inténtalo de nuevo.',
+        buyButton: 'Comprar',
+        bestSeller: 'Más vendido',
+        premium: 'Premium',
+        trending: 'Tendencia',
+        luxury: 'Lujo',
+        new: 'Nuevo',
+        featured: 'Destacado',
+        instagramCtaTitle: 'Ver más en Instagram',
+        instagramCtaDescription: 'Descubre nuestra colección completa, consejos de estilo y transformaciones de clientes',
+        instagramCtaButton: 'Visitar Instagram',
+        products: ${JSON.stringify(translations.es.products, null, 12).replace(/\n/g, '\n            ')}
+    }
+};`;
+
+        // Replace translations in main.js
+        const translationsRegex = /const translations = \{[\s\S]*?\n\};/;
+        mainJS = mainJS.replace(translationsRegex, translationsString);
+
+        // Replace products array in main.js
+        const productsString = `const products = ${JSON.stringify(productsArray, null, 4)};`;
+        const productsRegex = /const products = \[[\s\S]*?\n\];/;
+        mainJS = mainJS.replace(productsRegex, productsString);
+
+        // Write updated main.js
+        fs.writeFileSync(mainJSPath, mainJS, 'utf8');
+        console.log('✅ main.js has been successfully updated!');
+        console.log(`📱 Updated products and translations in main.js`);
+
+    } catch (error) {
+        console.error('⚠️  Warning: Could not update main.js:', error.message);
+    }
 }
 
 // Run the update

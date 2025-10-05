@@ -38,17 +38,17 @@ const translations = {
         instagramCtaDescription: 'Discover our full collection, styling tips, and customer transformations',
         instagramCtaButton: 'Visit Instagram',
         products: {
-            "braidsWithCurls01": {
-                "name": "Braids with Curls",
-                "description": "A set of braids with added curls and integrated weaving",
-                "specs": [
-                    "55 cm",
-                    "Requires maintenance",
-                    "Reusable",
-                    "Multicolor options"
-                ]
+                      "braidsWithCurls01": {
+                                "name": "Braids with Curls",
+                                "description": "A set of braids with added curls and integrated weaving",
+                                "specs": [
+                                          "55 cm",
+                                          "Requires maintenance",
+                                          "Reusable",
+                                          "Multicolor options"
+                                ]
+                      }
             }
-        }
     },
     uk: {
         swipeToExplore: 'Гортайте для перегляду',
@@ -69,17 +69,17 @@ const translations = {
         instagramCtaDescription: 'Відкрийте нашу повну колекцію, поради зі стилю та перетворення клієнтів',
         instagramCtaButton: 'Відвідати Instagram',
         products: {
-            "braidsWithCurls01": {
-                "name": "Коси з кучерями",
-                "description": "Комплект косичок з додаванням кучерів + вплетення",
-                "specs": [
-                    "55 см",
-                    "Потребує догляду",
-                    "Багаторазовий",
-                    "Різні кольори"
-                ]
+                      "braidsWithCurls01": {
+                                "name": "Коси з кучерями",
+                                "description": "Комплект косичок з додаванням кучерів + вплетення",
+                                "specs": [
+                                          "55 см",
+                                          "Потребує догляду",
+                                          "Багаторазовий",
+                                          "Різні кольори"
+                                ]
+                      }
             }
-        }
     },
     es: {
         swipeToExplore: 'Desliza para explorar',
@@ -100,17 +100,17 @@ const translations = {
         instagramCtaDescription: 'Descubre nuestra colección completa, consejos de estilo y transformaciones de clientes',
         instagramCtaButton: 'Visitar Instagram',
         products: {
-            "braidsWithCurls01": {
-                "name": "Trenzas con rizos",
-                "description": "Conjunto de trenzas con rizos añadidos y entretejido integrado",
-                "specs": [
-                    "55 cm",
-                    "Requiere mantenimiento",
-                    "Reutilizable",
-                    "Opciones multicolor"
-                ]
+                      "braidsWithCurls01": {
+                                "name": "Trenzas con rizos",
+                                "description": "Conjunto de trenzas con rizos añadidos y entretejido integrado",
+                                "specs": [
+                                          "55 cm",
+                                          "Requiere mantenimiento",
+                                          "Reutilizable",
+                                          "Opciones multicolor"
+                                ]
+                      }
             }
-        }
     }
 };
 

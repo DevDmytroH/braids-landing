@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- Main Homepage -->
+  <url>
+    <loc>https://tashoplete.hair/</loc>
+    <lastmod>2025-10-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tashoplete.hair/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://tashoplete.hair/?lang=uk"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tashoplete.hair/?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tashoplete.hair/"/>
+  </url>
+</urlset>

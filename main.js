@@ -152,12 +152,53 @@ const products = [
 let currentLanguage = 'en';
 let selectedProduct = null;
 
+// Get language from URL query parameter
+function getLanguageFromURL() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const lang = urlParams.get('lang');
+    return ['en', 'uk', 'es'].includes(lang) ? lang : 'en';
+}
+
+// Get product ID from URL hash
+function getProductIdFromHash() {
+    return window.location.hash.slice(1); // Remove the # symbol
+}
+
 // Initialize
 function init() {
     renderProducts();
     setupNavigationDots();
     setupEventListeners();
-    updateLanguage('en');
+
+    // Set language from URL or default to 'en'
+    const initialLang = getLanguageFromURL();
+    currentLanguage = initialLang;
+
+    // Update language selector UI
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-lang') === initialLang);
+    });
+
+    updateLanguage(initialLang);
+
+    // Scroll to product if hash is present
+    const productId = getProductIdFromHash();
+    if (productId) {
+        scrollToProduct(productId);
+    }
+}
+
+// Scroll to specific product by ID
+function scrollToProduct(productId) {
+    const productIndex = products.findIndex(p => p.id === productId);
+    if (productIndex !== -1) {
+        setTimeout(() => {
+            const productSlides = document.querySelectorAll('.product-slide');
+            if (productSlides[productIndex]) {
+                productSlides[productIndex].scrollIntoView({ behavior: 'smooth' });
+            }
+        }, 100);
+    }
 }
 
 // Setup side navigation dots
@@ -457,12 +498,18 @@ function setupEventListeners() {
         });
     }
 
-    // Language switcher
+    // Language switcher with URL update
     document.querySelectorAll('.lang-btn').forEach(btn => {
         btn.addEventListener('click', () => {
+            const newLang = btn.getAttribute('data-lang');
             document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            updateLanguage(btn.getAttribute('data-lang'));
+            updateLanguage(newLang);
+
+            // Update URL with new language parameter
+            const url = new URL(window.location);
+            url.searchParams.set('lang', newLang);
+            window.history.pushState({}, '', url);
         });
     });
 
@@ -530,21 +577,32 @@ function setupEventListeners() {
         const scrollTop = scrollContainer.scrollTop;
         const slideHeight = window.innerHeight;
         const newSlide = Math.round(scrollTop / slideHeight);
-        
+
         if (newSlide !== currentSlide) {
             productSlides[currentSlide].classList.remove('active');
             currentSlide = newSlide;
             productSlides[currentSlide].classList.add('active');
-            
-            // Track product scroll/view
+
+            // Update URL hash with current product ID
             const productId = products[currentSlide]?.id;
             if (productId) {
+                // Update hash without triggering scroll
+                const url = new URL(window.location);
+                url.hash = productId;
+                window.history.replaceState({}, '', url);
+
+                // Track product scroll/view
                 trackEvent('product_scroll', {
                     product_id: productId,
                     product_position: currentSlide
                 });
+            } else if (currentSlide === products.length) {
+                // Instagram CTA slide - clear hash
+                const url = new URL(window.location);
+                url.hash = '';
+                window.history.replaceState({}, '', url);
             }
-            
+
             navDots.forEach((dot, index) => {
                 dot.classList.toggle('active', index === currentSlide);
             });

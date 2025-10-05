@@ -1,0 +1,12 @@
+# robots.txt for https://tashoplete.hair/
+
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Disallow access to admin or private areas
+Disallow: /admin.html
+Disallow: /admin-server.js
+
+# Sitemap location
+Sitemap: https://tashoplete.hair/sitemap.xml

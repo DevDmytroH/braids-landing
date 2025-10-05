@@ -33,7 +33,7 @@ function generateStructuredData() {
                 "price": product.price.toString(),
                 "priceCurrency": "EUR",
                 "availability": "https://schema.org/InStock",
-                "url": `https://braids-landing.onrender.com/#${product.id}`
+                "url": `https://tashoplete.hair/#${product.id}`
             },
             "brand": {
                 "@type": "Brand",
@@ -141,7 +141,7 @@ function updateIndexHTML() {
     if (!html.includes('<meta name="keywords"')) {
         html = html.replace(
             /(<title>[^<]*<\/title>)/,
-            `$1\n    \n    <!-- Primary Meta Tags -->\n    <meta name="title" content="${pageTitle}">\n    <meta name="description" content="${metaDescription}">\n    <meta name="keywords" content="${metaKeywords}">\n    <meta name="author" content="Ta Sho Plete">\n    <meta name="robots" content="index, follow">\n    <meta name="language" content="English, Ukrainian, Spanish">\n    <meta name="geo.region" content="ES-V">\n    <meta name="geo.placename" content="Valencia, Spain">\n    <meta name="geo.position" content="39.4699;-0.3763">\n    <link rel="canonical" href="https://braids-landing.onrender.com/">\n    \n    <!-- Open Graph / Facebook Meta Tags -->\n    <meta property="og:type" content="website">\n    <meta property="og:url" content="https://braids-landing.onrender.com/">\n    <meta property="og:title" content="${pageTitle}">\n    <meta property="og:description" content="${metaDescription}">\n    <meta property="og:image" content="https://braids-landing.onrender.com/assets/seo/og-image.jpg">\n    <meta property="og:site_name" content="Ta Sho Plete">\n    <meta property="og:locale" content="en_US">\n    <meta property="og:locale:alternate" content="uk_UA">\n    <meta property="og:locale:alternate" content="es_ES">\n    \n    <!-- Twitter Card Meta Tags -->\n    <meta name="twitter:card" content="summary_large_image">\n    <meta name="twitter:url" content="https://braids-landing.onrender.com/">\n    <meta name="twitter:title" content="${pageTitle}">\n    <meta name="twitter:description" content="${metaDescription}">\n    <meta name="twitter:image" content="https://braids-landing.onrender.com/assets/seo/twitter-image.jpg">\n    \n    <!-- Additional SEO Meta Tags -->\n    <meta name="theme-color" content="#F5F1E8">\n    <meta name="apple-mobile-web-app-capable" content="yes">\n    <meta name="apple-mobile-web-app-status-bar-style" content="default">\n    <meta name="format-detection" content="telephone=no">`
+            `$1\n    \n    <!-- Primary Meta Tags -->\n    <meta name="title" content="${pageTitle}">\n    <meta name="description" content="${metaDescription}">\n    <meta name="keywords" content="${metaKeywords}">\n    <meta name="author" content="Ta Sho Plete">\n    <meta name="robots" content="index, follow">\n    <meta name="language" content="English, Ukrainian, Spanish">\n    <meta name="geo.region" content="ES-V">\n    <meta name="geo.placename" content="Valencia, Spain">\n    <meta name="geo.position" content="39.4699;-0.3763">\n    <link rel="canonical" href="https://tashoplete.hair/">\n    \n    <!-- Open Graph / Facebook Meta Tags -->\n    <meta property="og:type" content="website">\n    <meta property="og:url" content="https://tashoplete.hair/">\n    <meta property="og:title" content="${pageTitle}">\n    <meta property="og:description" content="${metaDescription}">\n    <meta property="og:image" content="https://tashoplete.hair/assets/seo/og-image.jpg">\n    <meta property="og:site_name" content="Ta Sho Plete">\n    <meta property="og:locale" content="en_US">\n    <meta property="og:locale:alternate" content="uk_UA">\n    <meta property="og:locale:alternate" content="es_ES">\n    \n    <!-- Twitter Card Meta Tags -->\n    <meta name="twitter:card" content="summary_large_image">\n    <meta name="twitter:url" content="https://tashoplete.hair/">\n    <meta name="twitter:title" content="${pageTitle}">\n    <meta name="twitter:description" content="${metaDescription}">\n    <meta name="twitter:image" content="https://tashoplete.hair/assets/seo/twitter-image.jpg">\n    \n    <!-- Additional SEO Meta Tags -->\n    <meta name="theme-color" content="#F5F1E8">\n    <meta name="apple-mobile-web-app-capable" content="yes">\n    <meta name="apple-mobile-web-app-status-bar-style" content="default">\n    <meta name="format-detection" content="telephone=no">`
         );
     } else {
         // Update existing meta tags
@@ -180,11 +180,11 @@ function updateIndexHTML() {
         "@context": "https://schema.org",
         "@type": "WebSite",
         "name": "Ta Sho Plete",
-        "url": "https://braids-landing.onrender.com/",
+        "url": "https://tashoplete.hair/",
         "description": "Premium hair extensions - handcrafted braids and extensions",
         "potentialAction": {
             "@type": "SearchAction",
-            "target": "https://braids-landing.onrender.com/search?q={search_term_string}",
+            "target": "https://tashoplete.hair/search?q={search_term_string}",
             "query-input": "required name=search_term_string"
         }
     };
@@ -193,8 +193,8 @@ function updateIndexHTML() {
         "@context": "https://schema.org",
         "@type": "Organization",
         "name": "Ta Sho Plete",
-        "url": "https://braids-landing.onrender.com/",
-        "logo": "https://braids-landing.onrender.com/assets/seo/logo.png",
+        "url": "https://tashoplete.hair/",
+        "logo": "https://tashoplete.hair/assets/seo/logo.png",
         "description": "Premium hair extensions retailer specializing in handcrafted braids and extensions",
         "sameAs": [
             "https://www.instagram.com/ta_sho_plete/"
